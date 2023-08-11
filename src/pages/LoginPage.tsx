@@ -20,8 +20,14 @@ const LoginPage = () => {
     const isDisabled = !watchFields.email || !watchFields.password;
 
     const onSubmit = async ({email, password}: LoginForm) => {
-        await login({email, password});
-        navigate('/encode');
+        await login({email, password}).then((res) => {
+            if (res?.status === 204 || res?.status === 200) {
+                localStorage.setItem('token', res.data.token);
+                return navigate('/encode');
+            }
+
+            navigate('/');
+        });
     };
 
     return (
