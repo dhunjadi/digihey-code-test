@@ -4,6 +4,8 @@ import Button from '../components/Button';
 import {LoginForm} from '../types';
 import {loginPageValidationSchema} from '../validations/loginPageValidation';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {login} from '../services/userServices';
+import {useNavigate} from 'react-router-dom';
 
 const LoginPage = () => {
     const {
@@ -13,12 +15,13 @@ const LoginPage = () => {
         formState: {errors},
     } = useForm<LoginForm>({resolver: zodResolver(loginPageValidationSchema), defaultValues: {email: '', password: ''}});
     const watchFields = watch();
+    const navigate = useNavigate();
 
     const isDisabled = !watchFields.email || !watchFields.password;
 
     const onSubmit = async ({email, password}: LoginForm) => {
-        // eslint-disable-next-line no-console
-        console.log('submitting', email, password);
+        await login({email, password});
+        navigate('/encode');
     };
 
     return (
