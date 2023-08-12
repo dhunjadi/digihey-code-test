@@ -1,0 +1,26 @@
+.c-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+
+    &__logo {
+        width: 30%;
+
+        @include screenTablet {
+            width: 20%;
+        }
+
+        @include screenDesktop {
+            width: 10%;
+        }
+    }
+
+    &__logout {
+        width: 10rem;
+    }
+}
